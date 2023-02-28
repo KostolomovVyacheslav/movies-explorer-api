@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -34,5 +33,4 @@ app.use(errors());
 app.use(handleError);
 
 app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
 });
