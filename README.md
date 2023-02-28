@@ -21,5 +21,7 @@
 * `/errors` – содержит описание ошибок.
 
 # Ссылки:
-[Backend](http://api.vyacheslav-kostolomov.nomoredomains.work/)
-IP: 51.250.6.95
+* IP: 51.250.6.95 - Публичный IP-адрес
+* Backend: (http://api.vyacheslav-kostolomov.nomoredomains.work/)
+
+* [Репозиторий проекта](https://github.com/KostolomovVyacheslav/movies-explorer-api/tree/level-1)
