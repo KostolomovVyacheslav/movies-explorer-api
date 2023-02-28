@@ -4,7 +4,7 @@ const {
   getSelfInfo, profileUpdate,
 } = require('../controllers/users');
 
-router.get('/', getSelfInfo);
+router.get('/me', getSelfInfo);
 
 router.patch('/me', celebrate({
   body: Joi.object().keys({
