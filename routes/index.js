@@ -21,9 +21,9 @@ router.post('/signin', celebrate({
   }),
 }), login);
 
-router.post('/signout', signOut);
-
 router.use(auth);
+
+router.post('/signout', signOut);
 
 router.use('/users', usersRouter);
 
