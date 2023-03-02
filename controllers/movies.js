@@ -14,9 +14,7 @@ const getMyMovies = (req, res, next) => {
     .then((movie) => {
       res.send(movie);
     })
-    .catch(() => {
-      next(new ServerError('На сервере произошла ошибка'));
-    });
+    .catch(next);
 };
 
 const createMovie = (req, res, next) => {
@@ -83,7 +81,7 @@ const deleteMovie = (req, res, next) => {
       if (err.name === 'CastError') {
         next(new BadRequest('Переданы некорректные данные для удаления фильма'));
       } else {
-        next(new ServerError('На сервере произошла ошибка'));
+        next(err);
       }
     });
 };
