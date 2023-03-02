@@ -94,18 +94,13 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-const signOut = (req, res, next) => {
-  try {
-    return res
-      .clearCookie('jwt', {
-        path: '/',
-      })
-      .send({
-        message: 'Выход выполнен',
-      });
-  } catch (err) {
-    return next(err);
-  }
+const signOut = (req, res) => {
+  res
+    .status(200)
+    .clearCookie('jwt', {
+      path: '/',
+    })
+    .send({ message: 'Выход выполнен' });
 };
 
 module.exports = {
