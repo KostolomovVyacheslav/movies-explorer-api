@@ -8,16 +8,14 @@ const getMyMovies = (req, res, next) => {
   const currentUser = req.user._id;
   Movie.find(
     { owner: currentUser },
-  ).orFail(new Error('Not Found'))
+  ).orFail(() => {
+    throw new NotFoundError('Фильмы не найдены');
+  })
     .then((movie) => {
       res.send(movie);
     })
-    .catch((err) => {
-      if (err.message === 'Not Found') {
-        next(new NotFoundError('Фильмы не найдены'));
-      } else {
-        next(new ServerError('На сервере произошла ошибка'));
-      }
+    .catch(() => {
+      next(new ServerError('На сервере произошла ошибка'));
     });
 };
 
@@ -67,7 +65,9 @@ const deleteMovie = (req, res, next) => {
   const currentUser = req.user._id;
   Movie.findById(
     { _id: movieId },
-  ).orFail(new Error('Not Found'))
+  ).orFail(() => {
+    throw new NotFoundError('Фильм с указанным _id не найден');
+  })
     .then((movie) => {
       if (currentUser === movie.owner.toString()) {
         Movie.deleteOne({ _id: movieId })
@@ -80,9 +80,7 @@ const deleteMovie = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.message === 'Not Found') {
-        next(new NotFoundError('Фильм с указанным _id не найден'));
-      } else if (err.name === 'CastError') {
+      if (err.name === 'CastError') {
         next(new BadRequest('Переданы некорректные данные для удаления фильма'));
       } else {
         next(new ServerError('На сервере произошла ошибка'));
