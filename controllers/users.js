@@ -68,6 +68,8 @@ const profileUpdate = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequest('Переданы некорректные данные при обновлении профиля'));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Данный адрес электронной почты уже используется'));
       } else {
         next(err);
       }

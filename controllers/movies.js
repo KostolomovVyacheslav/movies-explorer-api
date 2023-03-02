@@ -73,7 +73,8 @@ const deleteMovie = (req, res, next) => {
         Movie.deleteOne({ _id: movieId })
           .then(() => {
             res.send(movie);
-          });
+          })
+          .catch(next);
       } else {
         next(new ForbiddenError('В доступе отказано'));
       }
